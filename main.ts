@@ -27,3 +27,11 @@ if (
 if (written.includes("\n")) {
   throw new Error("entry.txt must be a single line");
 }
+// The file must hold exactly the line we meant to write, byte for byte:
+// no trailing newline, no stray whitespace, no silent truncation.
+if (written !== LINE) {
+  throw new Error(
+    `entry.txt does not match the intended line byte-for-byte ` +
+      `(file ${written.length} chars, expected ${LINE.length})`,
+  );
+}
